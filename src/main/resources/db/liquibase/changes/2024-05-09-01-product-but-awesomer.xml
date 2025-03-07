@@ -1,0 +1,29 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="ClearScore" id="fix integer out of range">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists schemaName="congo" tableName="products" columnName="image_url"/>
+            </not>
+            <not>
+                <columnExists schemaName="congo" tableName="products" columnName="description"/>
+            </not>
+            <not>
+                <columnExists schemaName="congo" tableName="products" columnName="price"/>
+            </not>
+        </preConditions>
+        <addColumn schemaName="congo" tableName="products">
+            <column name="image_url" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="description" type="TEXT" defaultValue=" ">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="INTEGER" defaultValue="99999">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
